@@ -2,13 +2,15 @@ export const metadata = {
   title: "Guest Area",
 };
 
-const page = () => {
+const Page = () => {
     return (
       <div>
-        <h1>account page</h1>
+        <h2 className="mb-7 text-2xl font-semibold text-accent-400">
+                Your Account
+            </h2>
       </div>
     )
   }
   
-  export default page;
+  export default Page;
   
