@@ -1,9 +1,9 @@
-const loading = () => {
+import Spinner from "@/app/_components/Spinner";
+
+const Loading = () => {
   return (
-    <div>
-      <p>LOADING DATA....</p>
-    </div>
+    <Spinner />
   )
 }
 
-export default loading;
+export default Loading;
