@@ -11,6 +11,8 @@ const nextConfig = {
           // Add more patterns as needed
         ],
       },
+      // output: "export"
 };
 
 export default nextConfig;
+
