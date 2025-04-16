@@ -29,13 +29,22 @@ const DateSelector = ({settings, cabin, bookedDates}) => {
     const minBookingLength = settings.min_booking_length;
     const maxBookingLength = settings.max_booking_length;
 
+    const handleRange = (range) => {
+        console.log(range)
+
+        if (range === undefined) return
+
+        if (range.from)
+        setRange(range)
+    }
+
 
     return (
         <div className="flex flex-col justify-between">
             <DayPicker
                 className="place-self-center pt-12"
                 mode="range"
-                onSelect={(range) => setRange(range)}
+                onSelect={(range) => handleRange(range)}
                 selected={range}
                 min={minBookingLength + 1}
                 max={maxBookingLength}
@@ -44,6 +53,7 @@ const DateSelector = ({settings, cabin, bookedDates}) => {
                 toYear={new Date().getFullYear() + 5}
                 captionLayout="dropdown"
                 numberOfMonths={2}
+                disabled={{ before: new Date() }}
             />
 
             <div className="flex h-[72px] items-center justify-between bg-accent-500 px-8 text-primary-800">
