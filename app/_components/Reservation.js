@@ -7,7 +7,7 @@ const Reservation = async ({ cabin }) => {
         getSettings(),
         getBookedDatesByCabinId(cabin.id),
     ]);
-    console.log("bookie", bookedDates);
+
     return (
         <div className="grid min-h-[400px] grid-cols-2 border border-primary-800">
             <DateSelector settings={settings} bookedDates={bookedDates} cabin={cabin} />
