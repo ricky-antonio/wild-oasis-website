@@ -13,7 +13,11 @@ export const authOptions = {
             return !!auth?.user;
         },
     },
+    pages: {
+        signIn: "/login"
+    }
 };
+
 
 export const handler = NextAuth(authOptions);
 
