@@ -1,12 +1,17 @@
 import SelectCountry from "@/app/_components/SelectCountry";
 import UpdateProfileForm from "@/app/_components/UpdateProfileForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/_lib/auth";
+import { getGuest } from "@/app/_lib/data-service";
 
 export const metadata = {
     title: "Update Profile",
 };
 
-const Page = () => {
-    const nationality = "portugal";
+const Page = async () => {
+    const session = await getServerSession(authOptions);
+    const guest = await getGuest(session.user.email);
+
     return (
         <div>
             <h2 className="mb-4 text-2xl font-semibold text-accent-400">
@@ -18,12 +23,12 @@ const Page = () => {
                 process faster and smoother. See you soon!
             </p>
 
-            <UpdateProfileForm>
+            <UpdateProfileForm guest={guest}>
                 <SelectCountry
                     name="nationality"
                     id="nationality"
                     className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 shadow-sm"
-                    defaultCountry={nationality}
+                    defaultCountry={guest.nationality}
                 />
             </UpdateProfileForm>
         </div>
