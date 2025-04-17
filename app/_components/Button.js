@@ -1,6 +1,7 @@
+"use client"
 import { useFormStatus } from "react-dom";
 
-const Button = () => {
+const Button = ({ children }) => {
     const { pending } = useFormStatus();
 
     return (
@@ -8,7 +9,7 @@ const Button = () => {
             disabled={pending}
             className="bg-accent-500 px-8 py-4 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
         >
-            {pending ? "updating..." : "Update profile"}
+            {pending ? "updating..." :  children }
         </button>
     );
 };

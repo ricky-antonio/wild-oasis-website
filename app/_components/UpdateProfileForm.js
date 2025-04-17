@@ -1,5 +1,3 @@
-"use client"
-
 import { updateProfile } from "../_lib/actions";
 import Button from "./Button";
 
@@ -53,7 +51,7 @@ const UpdateProfileForm = ({children, guest}) => {
             </div>
 
             <div className="flex items-center justify-end gap-6">
-                <Button />
+                <Button>Update profile</Button>
             </div>
         </form>
     );

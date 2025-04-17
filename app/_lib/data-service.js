@@ -76,7 +76,7 @@ export async function getBooking(id) {
     console.error(error);
     throw new Error('Booking could not get loaded');
   }
-
+  
   return data;
 }
 
@@ -94,7 +94,7 @@ export async function getBookings(guestId) {
     console.error(error);
     throw new Error('Bookings could not get loaded');
   }
-
+  
   return data;
 }
 
