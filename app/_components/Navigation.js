@@ -6,7 +6,7 @@ const Navigation = async () => {
     const session = await getServerSession(authOptions);
 
     return (
-        <nav className="z-10 text-xl">
+        <nav className="z-10 text-xl bg">
             <ul className="flex items-center gap-16">
                 <li>
                     <Link

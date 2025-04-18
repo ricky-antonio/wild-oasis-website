@@ -87,7 +87,7 @@ const DateSelector = ({ settings, cabin, bookedDates }) => {
 
                 {range.from || range.to ? (
                     <button
-                        className="border border-primary-800 px-4 py-2 text-sm font-semibold"
+                        className="border border-primary-800 px-4 py-2 text-sm font-semibold shadow-md shadow-primary-950"
                         onClick={() => resetRange()}
                     >
                         Clear
