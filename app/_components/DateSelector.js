@@ -1,6 +1,11 @@
 "use client";
 
-import { differenceInDays, isPast, isSameDay, isWithinInterval } from "date-fns";
+import {
+    differenceInDays,
+    isPast,
+    isSameDay,
+    isWithinInterval,
+} from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
@@ -10,7 +15,7 @@ const isAlreadyBooked = (range, datesArr) => {
         range.from &&
         range.to &&
         datesArr.some((date) =>
-            isWithinInterval(date, { start: range.from, end: range.to }),
+            isWithinInterval(date, { start: range.from, end: range.to })
         )
     );
 };
@@ -47,11 +52,14 @@ const DateSelector = ({ settings, cabin, bookedDates }) => {
                 fromDate={new Date()}
                 toYear={new Date().getFullYear() + 5}
                 captionLayout="dropdown"
-                numberOfMonths={2}
-                 disabled={(curDate) => isPast(curDate) || bookedDates.some((date) => isSameDay(date, curDate))}
+                numberOfMonths={1}
+                disabled={(curDate) =>
+                    isPast(curDate) ||
+                    bookedDates.some((date) => isSameDay(date, curDate))
+                }
             />
 
-            <div className="flex h-[72px] items-center justify-between bg-accent-500 px-8 text-primary-800">
+            <div className="flex py-5 items-center justify-between bg-accent-500 px-8 text-primary-800 flex-wrap">
                 <div className="flex items-baseline gap-6">
                     <p className="flex items-baseline gap-2">
                         {discount > 0 ? (
@@ -73,6 +81,13 @@ const DateSelector = ({ settings, cabin, bookedDates }) => {
                             <p className="bg-accent-600 px-3 py-2 text-2xl">
                                 <span>&times;</span> <span>{num_nights}</span>
                             </p>
+                        </>
+                    ) : null}
+                </div>
+
+                <div className="flex items-baseline gap-6">
+                    {num_nights ? (
+                        <>
                             <p>
                                 <span className="text-lg font-bold uppercase">
                                     Total
