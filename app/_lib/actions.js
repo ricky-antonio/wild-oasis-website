@@ -64,7 +64,6 @@ export const updateBooking = async (formData) => {
     const guestBookings = await getBookings(session.user.guestId);
     const guestBookingIds = guestBookings.map((booking) => booking.id);
 
-
     if (!guestBookingIds.includes(Number(bookingId)))
         throw new Error("You do not have access to this booking.");
 
@@ -75,12 +74,54 @@ export const updateBooking = async (formData) => {
     const { error } = await supabase
         .from("bookings")
         .update(updateData)
-        .eq("id", bookingId)
+        .eq("id", bookingId);
 
     if (error) throw new Error("Booking could not be updated");
 
     revalidatePath(`/account/reservations/edit/${bookingId}`);
 
-    redirect("/account/reservations")
+    redirect("/account/reservations");
+};
 
+export const createBooking = async (bookingData, formData) => {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("You must be logged in.");
+
+    // console.log("----", bookingData);
+    // console.log("----", formData);
+    console.log(session.user);
+
+    const { start_date, end_date, num_nights, cabin_price, cabin_id } =
+        bookingData;
+
+    const num_guests = Number(formData.get("num_guests"));
+    const observations = formData.get("observations").slice(0, 1000);
+    const newBooking = {
+        start_date,
+        end_date,
+        num_nights,
+        num_guests,
+        cabin_price,
+        extras_price: 0,
+        total_price: cabin_price,
+        status: "unconfirmed",
+        has_breakfast: false,
+        is_paid: false,
+        observations,
+        cabin_id,
+        guest_id: session.user.guestId,
+    };
+
+    const { data, error } = await supabase
+        .from("bookings")
+        .insert([newBooking])
+
+    if (error) {
+        console.error(error);
+        throw new Error("Booking could not be created");
+    }
+
+    revalidatePath(`/cabins/${bookingData.cabin_id}`);
+
+    redirect("/account/thankyou");
 };

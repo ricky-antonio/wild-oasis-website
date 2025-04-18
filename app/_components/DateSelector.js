@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { isWithinInterval } from "date-fns";
+import { differenceInDays, isPast, isSameDay, isWithinInterval } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
@@ -15,29 +15,24 @@ const isAlreadyBooked = (range, datesArr) => {
     );
 };
 
-const DateSelector = ({settings, cabin, bookedDates}) => {
-    const {range, setRange, resetRange} = useReservation();
+const DateSelector = ({ settings, cabin, bookedDates }) => {
+    const { range, setRange, resetRange } = useReservation();
 
-    // CHANGE
-    const regularPrice = 23;
-    const discount = 23;
-    const numNights = 23;
-    const cabinPrice = 23;
-    // const range = { from: null, to: null };
+    const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
+    const { regular_price, discount } = cabin;
+
+    const num_nights = differenceInDays(displayRange.to, displayRange.from);
+    const cabin_price = num_nights * (regular_price - discount);
 
     // SETTINGS
     const minBookingLength = settings.min_booking_length;
     const maxBookingLength = settings.max_booking_length;
 
     const handleRange = (range) => {
-        console.log(range)
+        if (range === undefined) return;
 
-        if (range === undefined) return
-
-        if (range.from)
-        setRange(range)
-    }
-
+        if (range.from) setRange(range);
+    };
 
     return (
         <div className="flex flex-col justify-between">
@@ -45,15 +40,15 @@ const DateSelector = ({settings, cabin, bookedDates}) => {
                 className="place-self-center pt-12"
                 mode="range"
                 onSelect={(range) => handleRange(range)}
-                selected={range}
-                min={minBookingLength + 1}
+                selected={displayRange}
+                min={minBookingLength}
                 max={maxBookingLength}
                 fromMonth={new Date()}
                 fromDate={new Date()}
                 toYear={new Date().getFullYear() + 5}
                 captionLayout="dropdown"
                 numberOfMonths={2}
-                disabled={{ before: new Date() }}
+                 disabled={(curDate) => isPast(curDate) || bookedDates.some((date) => isSameDay(date, curDate))}
             />
 
             <div className="flex h-[72px] items-center justify-between bg-accent-500 px-8 text-primary-800">
@@ -62,28 +57,28 @@ const DateSelector = ({settings, cabin, bookedDates}) => {
                         {discount > 0 ? (
                             <>
                                 <span className="text-2xl">
-                                    ${regularPrice - discount}
+                                    ${regular_price - discount}
                                 </span>
                                 <span className="font-semibold text-primary-700 line-through">
-                                    ${regularPrice}
+                                    ${regular_price}
                                 </span>
                             </>
                         ) : (
-                            <span className="text-2xl">${regularPrice}</span>
+                            <span className="text-2xl">${regular_price}</span>
                         )}
                         <span className="">/night</span>
                     </p>
-                    {numNights ? (
+                    {num_nights ? (
                         <>
                             <p className="bg-accent-600 px-3 py-2 text-2xl">
-                                <span>&times;</span> <span>{numNights}</span>
+                                <span>&times;</span> <span>{num_nights}</span>
                             </p>
                             <p>
                                 <span className="text-lg font-bold uppercase">
                                     Total
                                 </span>{" "}
                                 <span className="text-2xl font-semibold">
-                                    ${cabinPrice}
+                                    ${cabin_price}
                                 </span>
                             </p>
                         </>
