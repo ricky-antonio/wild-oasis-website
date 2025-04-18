@@ -14,8 +14,8 @@ const Cabin = ({ cabin }) => {
     } = cabin;
 
     return (
-        <div className="mb-24 grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 px-10 py-3">
-            <div className="relative -translate-x-3 scale-[1.15]">
+        <div className="mb-24 grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[3fr_4fr] gap-20 border border-primary-800 px-10 py-3">
+            <div className="relative md:-translate-x-3 md:scale-[1.15] ">
                 <Image
                     src={image}
                     alt={`Cabin ${name}`}
@@ -26,7 +26,7 @@ const Cabin = ({ cabin }) => {
             </div>
 
             <div>
-                <h3 className="mb-5 w-[150%] translate-x-[-254px] bg-primary-950 p-6 pb-1 text-7xl font-black text-accent-100">
+                <h3 className="mb-5 md:w-[150%] md:translate-x-[-254px] bg-primary-950 p-6 pb-1 text-7xl font-black text-accent-100">
                     Cabin {name}
                 </h3>
 

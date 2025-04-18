@@ -24,7 +24,7 @@ const Page = async ({ params }) => {
     const cabin = await getCabin(params.cabinId);
 
     return (
-        <div className="mx-auto mt-8 max-w-6xl">
+        <div className="mx-auto mt-8 max-w-[360px] md:max-w-6xl">
             <Cabin cabin={cabin} />
 
             <div>
