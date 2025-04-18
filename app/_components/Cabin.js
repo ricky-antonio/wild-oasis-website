@@ -16,7 +16,6 @@ const Cabin = ({ cabin }) => {
     return (
         <div className="mb-24 grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 px-10 py-3">
             <div className="relative -translate-x-3 scale-[1.15]">
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 <Image
                     src={image}
                     alt={`Cabin ${name}`}
